@@ -298,6 +298,15 @@ def webhook():
 
     return '', 200
 
+@app.route('/crear-tablas')
+def crear_tablas():
+    try:
+        import init_db
+        return "✅ Base de datos creada en Render"
+    except Exception as e:
+        return f"❌ Error: {e}"
+
+
 # Ejecutar la app
 if __name__ == '__main__':
     app.run(debug=True)
