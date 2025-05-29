@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS productos (
     nombre TEXT NOT NULL,
     descripcion TEXT,
     precio REAL NOT NULL,
-    imagen TEXT,
+    imagenes TEXT,
     slug TEXT UNIQUE NOT NULL
 )
 ''')
