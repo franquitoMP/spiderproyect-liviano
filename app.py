@@ -225,7 +225,7 @@ def finalizar_compra():
     return "Gracias por tu compra. En breve recibirás tu pedido."
 
 import mercadopago
-from mercadopago_config import ACCESS_TOKEN
+from mercadopago_config import sdk
 
 @app.route('/pagar', methods=['GET'])
 def pagar():
