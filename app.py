@@ -3,12 +3,17 @@ import sqlite3
 from flask import request, redirect
 import sqlite3
 import random
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+db_path = os.path.join(BASE_DIR, 'tienda.db')
 
 app = Flask(__name__)
 
 # Función para conectar y obtener productos
 def obtener_productos():#Esta función se conecta con la base de datos tienda.db, lee todos los registros de la tabla productos, y devuelve una lista de productos.
-    conn = sqlite3.connect('tienda.db')
+
+    conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM productos')
@@ -18,7 +23,7 @@ def obtener_productos():#Esta función se conecta con la base de datos tienda.db
 
 # Función para obtener un solo producto por slug
 def obtener_producto_por_slug(slug):
-    conn = sqlite3.connect('tienda.db')
+    conn = sqlite3.connect(db_path)    
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM productos WHERE slug = ?', (slug,))
@@ -50,7 +55,8 @@ def producto_detalle(slug):
     imagenes = producto['imagenes'].split(',') if producto['imagenes'] else []
 
     # Conectar y buscar talles + stock + en_carrito
-    conn = sqlite3.connect('tienda.db')
+
+    conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
@@ -73,7 +79,7 @@ def producto_detalle(slug):
 
 @app.route('/agregar_al_carrito/<slug>', methods=['POST'])
 def agregar_al_carrito(slug):
-    conn = sqlite3.connect('tienda.db')
+    conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
@@ -131,7 +137,7 @@ def agregar_al_carrito(slug):
 
 @app.route('/carrito')
 def ver_carrito():
-    conn = sqlite3.connect('tienda.db')
+    conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
@@ -159,7 +165,7 @@ def ver_carrito():
 
 @app.route('/aumentar/<int:producto_id>/<path:talle>',methods=['POST'])
 def aumentar(producto_id, talle):
-    conn = sqlite3.connect('tienda.db')
+    conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
@@ -195,7 +201,7 @@ def aumentar(producto_id, talle):
 # Disminuir cantidad
 @app.route('/disminuir/<int:producto_id>/<path:talle>', methods=['POST'])
 def disminuir(producto_id, talle):
-    conn = sqlite3.connect('tienda.db')
+    conn = sqlite3.connect(db_path)    
     cursor = conn.cursor()
 
     cursor.execute('SELECT cantidad FROM carrito WHERE producto_id = ? AND talle = ?', (producto_id, talle))
@@ -213,7 +219,7 @@ def disminuir(producto_id, talle):
 # Eliminar producto directamente
 @app.route('/eliminar/<int:producto_id>/<path:talle>', methods=['POST'])
 def eliminar(producto_id, talle):
-    conn = sqlite3.connect('tienda.db')
+    conn = sqlite3.connect(db_path)    
     cursor = conn.cursor()
     cursor.execute('DELETE FROM carrito WHERE producto_id = ? AND talle = ?', (producto_id, talle))
     conn.commit()
@@ -277,7 +283,7 @@ def webhook():
             print("✅ Pago aprobado")
 
             # Conectamos con la base y restamos stock
-            conn = sqlite3.connect('tienda.db')
+            conn = sqlite3.connect(db_path)            
             cursor = conn.cursor()
 
             cursor.execute("SELECT producto_id, talle, cantidad FROM carrito")
