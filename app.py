@@ -264,9 +264,7 @@ def pagar():
 def webhook():
     import mercadopago
     import json
-    from mercadopago_config import ACCESS_TOKEN
-
-    sdk = mercadopago.SDK(ACCESS_TOKEN)
+    from mercadopago_config import sdk
 
     data = request.get_json()
     if data and data.get("type") == "payment":
