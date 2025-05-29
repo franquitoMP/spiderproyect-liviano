@@ -229,8 +229,7 @@ from mercadopago_config import sdk
 
 @app.route('/pagar', methods=['GET'])
 def pagar():
-    sdk = mercadopago.SDK(ACCESS_TOKEN)
-
+    
     preference_data = {
         "items": [
             {
