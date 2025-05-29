@@ -1,2 +1,4 @@
-# mercadopago_config.py
-ACCESS_TOKEN = "APP_USR-339713695148092-052023-fd1eae844a175b47bfc61b426d54648b-222266858"
+import os
+import mercadopago
+
+sdk = mercadopago.SDK(os.getenv("MP_ACCESS_TOKEN"))
