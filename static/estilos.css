@@ -1,0 +1,256 @@
+body {
+    background-color: #ffffff;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+     margin: 0;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+      
+
+
+.top-marquee {
+    background-color: #000;
+    color: #fff;
+    font-size: 0.8rem;
+    padding: 0.2rem 1rem;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+.navbar-custom {
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    padding: 1.2rem 0;
+}
+
+.navbar-custom .navbar-brand {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700; /* más negrita */
+    font-size: 1.3rem;
+    letter-spacing: 10px;
+}
+
+
+.navbar-custom .nav-link {
+    color: #222;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.hero-banner img {
+    width: 100%;
+    max-height: 7000px;
+    object-fit: cover;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.card {
+    background-color: #fafafa;
+    transition: transform 0.2s ease;
+}
+.card:hover {
+    transform: scale(1.01);
+}
+
+.card-img-top {
+    height: 450px;
+    object-fit: cover;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.card-body {
+    text-align: center;
+    font-weight: 400;
+    font-size: 0.95rem;
+}
+.card-body h5 {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 0.3rem;
+}
+.card-body p {
+    font-size: 0.9rem;
+    color: #999;
+    font-weight: 300;
+}
+
+.btn-danger {
+    background-color: #d10000;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
+    border-radius: 20px;
+}
+
+footer {
+    background: #262626;
+    color: #fff4f4;
+    font-size: 0.9rem;
+}
+
+
+.whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    width: 60px;
+    height: 60px;
+}
+.whatsapp-float img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.banner-text-box {
+    position: absolute;
+    top: 70%;
+    left: 80%;
+    transform: translate(-20%, -30%);
+    z-index: 2;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.banner-text-left {
+    position: absolute;
+    top: 22%;
+    left: 2%;
+    z-index: 2;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+    width: 20%;
+    pointer-events: none;
+}
+/* Fijamos altura mínima para que todas las imágenes entren sin saltar el contenido */
+#carouselProducto .carousel-inner {
+    min-height: 600px;
+  }
+  
+  /* Imagen del carrusel */
+  .producto-img {
+    max-height: 600px;
+    width: auto;
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+    object-fit: contain;
+  }
+  
+/* Flechas más visibles y posicionadas más arriba */
+#carouselProducto .carousel-control-prev,
+#carouselProducto .carousel-control-next {
+  top: -30%; /* Cambiá a 35% o 45% si querés afinar */
+  transform: none;
+}
+
+/* Estilo visual de las flechas */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(100%);
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.producto-detalle {
+  padding: 2rem 1rem !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+}
+.btn-danger {
+    background-color: #e50914 !important;
+    border: none !important;
+    border-radius: 6px !important;
+    padding: 0.6rem 1.5rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  button:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out;
+  }
+  .producto-detalle h1 {
+    opacity: 0;
+    animation: fadeIn 0.6s forwards;
+  }
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .slide-in-left {
+    animation: slideInLeft 0.6s ease-out forwards;
+  }
+.thumb-img:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s;
+  z-index: 2;
+}  
+.mt-4.d-flex img {
+    width: 30px;
+    height: auto;
+  }
+  html, body {
+    height: 100%;
+  }
+  
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  main {
+    flex: 1;
+  }
+  
+@media (max-width: 768px) {
+    .banner-text-box {
+      top: 40%;  /* misma posición */
+      left: 80%;
+      transform: translate(-20%, -30%);
+      width: auto;
+      text-align: right;
+    }
+  
+    .banner-text-box h2 { /*CONVERTITE EN HEROE*/
+      font-size: 0.5rem;
+    }
+  
+    .banner-text-box p {/*Consegui tu traje*/
+      font-size: 0.45rem;
+    }
+  
+    .banner-text-box .btn {
+      font-size: 0.5rem;
+      padding: 0.10rem 0.10rem;
+    }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  

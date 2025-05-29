@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Carrito de Compras</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+
+</head>
+
+<body class="bg-light">
+
+  <div class="top-marquee">
+    <marquee behavior="scroll" direction="left" scrollamount="9">
+      10% OFF pagando con transferencia - Pagá con tarjeta en cuotas – Envíos a todo el país
+    </marquee>
+  </div>
+
+  <!-- Barra de navegación (navbar) -->
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <div class="container">
+      <a class="navbar-brand mb-2" href="/">SPIDER PROYECT</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <!-- Menú principal -->
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="/">Inicio</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="{{ url_for('home') }}#destacados">Destacados</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="{{ url_for('productos') }}">Productos</a>
+          </li>
+        </ul>
+
+        <!-- Ícono carrito a la derecha -->
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link position-relative" href="{{ url_for('ver_carrito') }}">
+              <i class="bi bi-cart-fill" style="font-size: 1.4rem;"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="navbar navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('productos') }}">← Volver a todos los productos</a>
+    </div>
+  </nav>
+
+  <main class="container my-5">
+    <div class="container py-5">
+      {% if productos %}
+      <h2 class="text-center mb-4"><i class="bi bi-cart-fill"></i> Tu carrito</h2>
+
+      <div class="table-responsive">
+        <table class="table table-bordered bg-white text-center align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Imagen</th>
+              <th>Producto</th>
+              <th>Precio</th>
+              <th>Cantidad</th>
+              <th>Talle</th>
+              <th>Subtotal</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for producto in productos %}
+            <tr>
+              <td><img src="{{ url_for('static', filename='img/' + producto.imagen) }}" width="80"></td>
+              <td>{{ producto.nombre }}</td>
+              <td>${{ producto.precio }}</td>
+              <td>{{ producto.cantidad }}</td>
+              <td>{{ producto.talle }}</td>
+              <td>${{ producto.precio * producto.cantidad }}</td>
+              <td>
+                <form action="{{ url_for('aumentar', producto_id=producto['producto_id'], talle=producto['talle']) }}"
+                  method="POST" style="display:inline;">
+                  <button type="submit" class="btn btn-sm btn-success" {% if producto['cantidad']>= producto['stock']
+                    %}disabled{% endif %}>
+                    +
+                  </button>
+                </form>
+
+                <form action="{{ url_for('disminuir', producto_id=producto['producto_id'], talle=producto['talle']) }}"
+                  method="POST" style="display:inline;">
+                  <button class="btn btn-sm btn-warning">-</button>
+                </form>
+                <form action="{{ url_for('eliminar', producto_id=producto['producto_id'], talle=producto['talle']) }}"
+                  method="POST" style="display:inline;">
+                   <button class="btn btn-sm btn-danger">Eliminar</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+
+      <div class="text-end fs-4 fw-bold">
+        Total: ${{ total }}
+      </div>
+
+      <div class="text-end mt-4">
+        <a href="{{ url_for('pagar') }}" class="btn btn-danger btn-lg">Pagar con MercadoPago</a>
+      </div>
+      
+    </div>
+    {% else %}
+    <div class="text-center mt-5">
+      <h3>Tu carrito está vacío 😭</h3>
+      <a href="{{ url_for('productos') }}" class="btn btn-primary mt-3">Ver productos</a>
+    </div>
+    {% endif %}
+
+  </main>
+  <!-- Pie de página -->
+  <footer class="py-4">
+    <div class="container text-center">
+      <p class="mb-0">&copy; 2025 SpiderProyect. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
