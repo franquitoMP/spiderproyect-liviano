@@ -1,4 +1,8 @@
 import sqlite3
+import os  # <-- ¡Esta línea es clave!
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+db_path = os.path.join(BASE_DIR, 'tienda.db')
 
 # Conexión
 conn = sqlite3.connect('tienda.db')
