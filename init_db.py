@@ -5,7 +5,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(BASE_DIR, 'tienda.db')
 
 try:
-    conn = sqlite3.connect(db_path)
+    conn = sqlite3.connect(db_path, timeout=5)
     cursor = conn.cursor()
 
     # Crear tablas
@@ -64,8 +64,11 @@ try:
     conn.commit()
     print("✅ Base de datos creada correctamente.")
 
-except Exception as e:
-    print(f"❌ Error: {e}")
+except sqlite3.OperationalError as e:
+    print(f"❌ Error: {str(e)}")
+
 finally:
-    conn.close()
+    if conn:
+        conn.close()
+        print("🔒 Conexión cerrada.")
 
