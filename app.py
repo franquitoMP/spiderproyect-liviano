@@ -312,6 +312,45 @@ def crear_tablas():
     except Exception as e:
         return f"❌ Error: {e}"
 
+@app.route('/forzar-crear-tablas')
+def forzar_crear_tablas():
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS productos (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        slug TEXT UNIQUE NOT NULL,
+        nombre TEXT NOT NULL,
+        precio REAL NOT NULL,
+        descripcion TEXT,
+        imagenes TEXT
+    )
+    ''')
+
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS carrito (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        producto_id INTEGER,
+        cantidad INTEGER,
+        talle TEXT,
+        FOREIGN KEY (producto_id) REFERENCES productos(id)
+    )
+    ''')
+
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS stock_por_talle (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        producto_id INTEGER NOT NULL,
+        talle TEXT NOT NULL,
+        stock INTEGER NOT NULL,
+        FOREIGN KEY (producto_id) REFERENCES productos(id)
+    )
+    ''')
+
+    conn.commit()
+    conn.close()
+    return "Tablas creadas desde Render."
 
 # Ejecutar la app
 if __name__ == '__main__':
