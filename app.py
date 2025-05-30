@@ -312,6 +312,15 @@ def crear_tablas():
     except Exception as e:
         return f"❌ Error: {e}"
 
+@app.route("/debug-productos")
+def debug_productos():
+    conn = sqlite3.connect('tienda.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM productos")
+    productos = cursor.fetchall()
+    conn.close()
+    return {"productos": productos}
+
 @app.route('/forzar-crear-tablas')
 def forzar_crear_tablas():
     conn = sqlite3.connect(db_path)
