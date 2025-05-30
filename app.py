@@ -296,7 +296,7 @@ def webhook():
                     WHERE producto_id = ? AND talle = ?
                 ''', (cantidad, producto_id, talle))
 
-            # Limpiar carrito (opcional)
+            # Limpiar carrito (opcionall)
             cursor.execute("DELETE FROM carrito")
 
             conn.commit()
