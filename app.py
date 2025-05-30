@@ -307,11 +307,12 @@ def webhook():
 @app.route('/crear-tablas')
 def crear_tablas():
     try:
-        import init_db
+        from init_db import cargar_datos
+        cargar_datos()
         return "✅ Base de datos creada en Render"
     except Exception as e:
         return f"❌ Error: {e}"
-        
+ 
 @app.route('/forzar-crear-tablas')
 def forzar_crear_tablas():
     conn = sqlite3.connect(db_path)
@@ -363,6 +364,12 @@ def debug_productos():
     conn.close()
 
     return { "productos": [dict(p) for p in productos] }
+
+@app.route("/cargar-productos")
+def cargar_productos():
+    from init_db import cargar_datos
+    cargar_datos()
+    return "Productos cargados en la base de datos desde Render."
 
 # Ejecutar la app
 if __name__ == '__main__':
