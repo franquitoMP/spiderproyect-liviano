@@ -11,8 +11,7 @@ __pycache__/
 # Archivos de VS Code
 *.code-workspace
 
-# Todas las imágenes PNG pesadas (temporalmente)
-static/img/*.png
+
 
 # Archivos webp si querés subirlos más adelante por partes (opcional)
 # static/img/*.webp
