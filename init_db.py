@@ -61,6 +61,49 @@ def cargar_datos():
     INSERT INTO productos (slug, nombre, precio, descripcion, imagen, imagenes)
     VALUES (?, ?, ?, ?, ?, ?)
     ''', productos)
+    # Obtener IDs y slugs
+    cursor.execute("SELECT id, slug FROM productos")
+    productos_insertados = cursor.fetchall()
+
+    # Stock real
+    stock_real = {
+        'miles-morales': {
+            'M/120': 2,
+            '170': 1,
+            'L/130': 1
+        },
+        'traje-mejorado': {
+            'L/130': 1,
+            '180': 1,
+            'XS/100': 1,
+            'M/120': 1,
+            'L/130': 2
+        },
+        'electro': {
+            'XXL/150': 1,
+            'XL/140': 1
+        },
+        'spiderman-ps4': {
+            'M/120': 2
+        },
+        'traje-clasico': {
+            'L/130': 2,
+            'S/110': 1
+        },
+        'iron-spider': {
+            'XL/140': 1
+        }
+    }
+
+    # Insertar talles
+    for producto_id, slug in productos_insertados:
+        if slug in stock_real:
+            for talle, cantidad in stock_real[slug].items():
+                cursor.execute('''
+                    INSERT INTO stock_por_talle (producto_id, talle, stock)
+                    VALUES (?, ?, ?)
+                ''', (producto_id, talle, cantidad))
 
     conn.commit()
     conn.close()
+    print("✅ Base de datos cargada correctamente")
