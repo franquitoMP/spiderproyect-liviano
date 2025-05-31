@@ -53,7 +53,7 @@ def cargar_datos():
         ("spiderman-ps4", "Spiderman PS4", 59900, "Traje inspirado en el videojuego de PS4...", "ps41_.webp", "ps40_.webp,ps41_.webp,talles.webp"),
         ("traje-clasico", "Traje Clasico", 62900, "Traje clásico de los cómics...", "clasico9.webp", "clasico1.png,clasico2.png,clasico3.png,clasico4.png,clasico5.png,talles.webp"),
         ("miles-morales", "Miles Morales", 59900, "Diseño negro y rojo intenso...", "miles2_.webp", "miles5_.webp,miles1_.webp,miles4_.webp,miles3_.webp,talles.webp"),
-        ("electro", "Traje Negro y Dorado", 59900, "Diseño con circuitos dorados...", "electro0_.webp", "electro4_.webp,electro3_.webp,talles.webp"),
+        ("electro", "Traje Negro y Dorado", 59901, "Diseño con circuitos dorados...", "electro0_.webp", "electro4_.webp,electro3_.webp,talles.webp"),
         ("traje-mejorado-adulto", "Traje Mejorado (Adulto)", 69900, "Versión mejorada para adultos...", "mejorado-adulto0_.webp", "mejorado-adulto2_.webp,mejorado-adulto0_.webp,mejorado-adulto1_.webp,talles.webp"),
     ]
 
