@@ -392,6 +392,16 @@ def cargar_productos():
     cargar_datos()
     return "Productos cargados en la base de datos desde Render."
 
+@app.route('/debug-talles')
+def debug_talles():
+    conn = sqlite3.connect(db_path)
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM stock_por_talle")
+    talles = cursor.fetchall()
+    conn.close()
+    return {"talles": [dict(t) for t in talles]}
+
 # Ejecutar la app
 if __name__ == '__main__':
     app.run(debug=True)
