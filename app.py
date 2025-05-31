@@ -10,6 +10,27 @@ db_path = os.path.join(BASE_DIR, 'tienda.db')
 
 app = Flask(__name__)
 
+def verificar_db():
+    if not os.path.exists(db_path):
+        return False
+    try:
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='productos'")
+        existe = cursor.fetchone()
+        conn.close()
+        return bool(existe)
+    except:
+        return False
+
+if not verificar_db():
+    print("⚠️ Base de datos no encontrada o incompleta. Creando...")
+    from init_db import cargar_datos
+    cargar_datos()
+    print("✅ Base de datos lista automáticamente al iniciar.")
+
+
+
 # Función para conectar y obtener productos
 def obtener_productos():#Esta función se conecta con la base de datos tienda.db, lee todos los registros de la tabla productos, y devuelve una lista de productos.
 
