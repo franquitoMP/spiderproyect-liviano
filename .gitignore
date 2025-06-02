@@ -11,7 +11,8 @@ __pycache__/
 # Archivos de VS Code
 *.code-workspace
 
-
+# .gitignore
+.env
 
 # Archivos webp si querés subirlos más adelante por partes (opcional)
 # static/img/*.webp
