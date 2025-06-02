@@ -3,11 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 import random
 import os
 from mercadopago_config import sdk
+from dotenv import load_dotenv
+
+load_dotenv()  # <-- esto carga las variables del .env
 
 app = Flask(__name__)
 
 # 🔗 Conexión a PostgreSQL (copiá tu string real acá)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://tienda_user:postgresql://tienda_user:y7nmCICXWeXhWsXRMEZ8I0vcxHxabA38@dpg-d0uecce3jp1c73fu16rg-a/tienda_rbjg'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
