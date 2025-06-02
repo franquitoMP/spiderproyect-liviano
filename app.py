@@ -1,7 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request
 import sqlite3
 from flask import request, redirect
-import sqlite3
 import random
 import os
 
