@@ -76,4 +76,7 @@ def cargar_datos():
     print("✅ Productos y stock cargados correctamente")
 
 if __name__ == '__main__':
-    cargar_datos()
+    from app import app  # 👈 esto importa tu instancia de Flask
+
+    with app.app_context():
+        cargar_datos()
