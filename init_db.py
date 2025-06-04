@@ -5,10 +5,10 @@ def cargar_datos():
         Producto(
             slug="miles-morales",
             nombre="Traje Miles Morales",
-            precio=64900,
+            precio=45900,
             descripcion="Inspirado en Spider-Man: Into the Spider-Verse",
-            imagen="miles1.jpg",
-            imagenes="miles1.jpg,miles2.jpg"
+            imagen="miles0_.webp",
+            imagenes="miles0_.webp,miles1_.webp,miles1_.webp,miles2_.webp,miles3_.webp,miles4_.webp,miles5_.webp,talles.webp"
         ),
         Producto(
             slug="upgraded-suit",
