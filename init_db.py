@@ -11,44 +11,44 @@ def cargar_datos():
             imagenes="miles0_.webp,miles1_.webp,miles1_.webp,miles2_.webp,miles3_.webp,miles4_.webp,miles5_.webp,talles.webp"
         ),
         Producto(
-            slug="upgraded-suit",
+            slug="traje-mejorado",
             nombre="Upgraded Suit",
             precio=64900,
             descripcion="Versión mejorada del traje clásico rojo y negro",
-            imagen="upgraded1.jpg",
-            imagenes="upgraded1.jpg,upgraded2.jpg"
+            imagen="mejorado0_.webp",
+            imagenes="mejorado0_.webp,mejorado4_.webp,mejorado5_.webp,mejorado6_.webp,talles.webp"
         ),
         Producto(
-            slug="gold-black",
+            slug="electro",
             nombre="Traje Gold and Black",
             precio=64900,
             descripcion="Traje con detalles dorados, basado en No Way Home",
-            imagen="gold1.jpg",
-            imagenes="gold1.jpg"
+            imagen="electro0_.webp",
+            imagenes="electro0_.webp,electro1_.webp,electro2_.webp,electro3_.webp,electro4_.webp,electro5_.webp,talles.webp"
         ),
         Producto(
-            slug="ps4-advanced",
+            slug="spiderman-ps4",
             nombre="Traje Spider-Man PS4",
             precio=64900,
             descripcion="Traje del juego de PS4 con el logo blanco",
-            imagen="ps4.jpg",
-            imagenes="ps4.jpg"
+            imagen="ps40_.webp",
+            imagenes="ps40_.webp,ps41_.webp,talles.webp"
         ),
         Producto(
-            slug="classic-suit",
+            slug="traje-clasico",
             nombre="Traje Clásico",
             precio=64900,
             descripcion="El traje tradicional rojo y azul",
-            imagen="classic.jpg",
-            imagenes="classic.jpg"
+            imagen="clasico0.webp",
+            imagenes="clasico0.webp,clasico1.webp,clasico2.webp,clasico3.webp,clasico4.webp,clasico5.webp,clasico9.webp,talles.webp"
         ),
         Producto(
             slug="iron-spider",
             nombre="Traje Iron Spider",
             precio=64900,
             descripcion="Basado en Avengers: Infinity War",
-            imagen="iron.jpg",
-            imagenes="iron.jpg"
+            imagen="iron-spider0_.webp",
+            imagenes="iron-spider0_.webp,iron-spider1_.webp,iron-spider2_.webp,iron-spider3_.webp,iron-spider4_.webp,talles.webp"
         ),
     ]
 
