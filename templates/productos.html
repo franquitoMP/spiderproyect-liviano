@@ -68,19 +68,19 @@
       {% for producto in productos %}
       <div class="col-lg-4 col-md-6 mb-4 d-flex align-items-stretch">
         <div class="card w-100">
-          <a href="{{ url_for('producto_detalle', slug=producto['slug']) }}">
-            <img src="{{ url_for('static', filename='img/' ~ producto['imagen']) }}" class="card-img-top w-100"
-              alt="{{ producto['nombre'] }}">
+          <a href="{{ url_for('producto_detalle', slug=producto.slug) }}">
+            <img src="{{ url_for('static', filename='img/' ~ producto.imagen) }}" class="card-img-top w-100"
+              alt="{{ producto.nombre }}">
           </a>
           <div class="card-body text-center">
             <h5>
-              <a href="{{ url_for('producto_detalle', slug=producto['slug']) }}" class="text-dark text-decoration-none">
+              <a href="{{ url_for('producto_detalle', slug=producto.slug) }}" class="text-dark text-decoration-none">
                 {{ producto.nombre }}
               </a>
             </h5>
 
             <p>{{ producto.precio }}</p>
-            <a href="{{ url_for('producto_detalle', slug=producto['slug']) }}" class="btn btn-danger">Comprar</a>
+            <a href="{{ url_for('producto_detalle', slug=producto.slug) }}" class="btn btn-danger">Comprar</a>
           </div>
         </div>
       </div>
