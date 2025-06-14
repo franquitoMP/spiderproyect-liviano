@@ -1,11 +1,11 @@
 from app import db, Producto, StockPorTalle
 
 def cargar_datos():
-    # 🔴 1. Borrar productos viejos antes de cargar nuevos
+    # 🔴 Eliminar productos anteriores
     Producto.query.delete()
     db.session.commit()
 
-    # 🟢 2. Cargar nuevos productos
+    # 🟢 Cargar nuevos productos
     productos = [
         Producto(
             slug="miles-morales",
@@ -60,20 +60,22 @@ def cargar_datos():
     db.session.add_all(productos)
     db.session.commit()
 
-    # Asignar stock por talle
+    # 🔍 Obtener IDs reales desde la base
+    productos_map = {p.slug: p.id for p in Producto.query.all()}
+
     stock = [
-        StockPorTalle(producto_id=1, talle='120', stock=1),
-        StockPorTalle(producto_id=1, talle='130', stock=1),
-        StockPorTalle(producto_id=1, talle='170', stock=1),
-        StockPorTalle(producto_id=2, talle='100', stock=1),
-        StockPorTalle(producto_id=2, talle='120', stock=1),
-        StockPorTalle(producto_id=2, talle='130', stock=1),
-        StockPorTalle(producto_id=2, talle='180', stock=1),
-        StockPorTalle(producto_id=3, talle='150', stock=1),
-        StockPorTalle(producto_id=4, talle='120', stock=1),
-        StockPorTalle(producto_id=5, talle='110', stock=1),
-        StockPorTalle(producto_id=5, talle='130', stock=1),
-        StockPorTalle(producto_id=6, talle='140', stock=1),
+        StockPorTalle(producto_id=productos_map['miles-morales'], talle='120', stock=1),
+        StockPorTalle(producto_id=productos_map['miles-morales'], talle='130', stock=1),
+        StockPorTalle(producto_id=productos_map['miles-morales'], talle='170', stock=1),
+        StockPorTalle(producto_id=productos_map['traje-mejorado'], talle='100', stock=1),
+        StockPorTalle(producto_id=productos_map['traje-mejorado'], talle='120', stock=1),
+        StockPorTalle(producto_id=productos_map['traje-mejorado'], talle='130', stock=1),
+        StockPorTalle(producto_id=productos_map['traje-mejorado'], talle='180', stock=1),
+        StockPorTalle(producto_id=productos_map['electro'], talle='150', stock=1),
+        StockPorTalle(producto_id=productos_map['spiderman-ps4'], talle='120', stock=1),
+        StockPorTalle(producto_id=productos_map['traje-clasico'], talle='110', stock=1),
+        StockPorTalle(producto_id=productos_map['traje-clasico'], talle='130', stock=1),
+        StockPorTalle(producto_id=productos_map['iron-spider'], talle='140', stock=1),
     ]
 
     db.session.add_all(stock)
@@ -81,8 +83,7 @@ def cargar_datos():
     print("✅ Productos y stock cargados correctamente")
 
 if __name__ == '__main__':
-    from app import app  # 👈 esto importa tu instancia de Flask
+    from app import app
 
     with app.app_context():
         cargar_datos()
-
