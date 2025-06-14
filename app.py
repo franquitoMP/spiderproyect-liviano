@@ -48,22 +48,33 @@ def productos():
 
 from sqlalchemy import func
 
-raw_talles = (
-    db.session.query(
-        StockPorTalle.talle,
-        StockPorTalle.stock,
-        func.coalesce(func.sum(Carrito.cantidad), 0).label("en_carrito")
-    )
-    .outerjoin(Carrito, (StockPorTalle.producto_id == Carrito.producto_id) & (StockPorTalle.talle == Carrito.talle))
-    .filter(StockPorTalle.producto_id == producto.id)
-    .group_by(StockPorTalle.talle, StockPorTalle.stock)
-    .all()
-)
+@app.route('/producto/<slug>')
+def producto_detalle(slug):
+    producto = Producto.query.filter_by(slug=slug).first()
+    if not producto:
+        return "Producto no encontrado", 404
 
-talles = [
-    {'talle': t[0], 'stock': t[1], 'en_carrito': t[2]}
-    for t in raw_talles
-]
+    imagenes = producto.imagenes.split(',') if producto.imagenes else []
+
+    raw_talles = (
+        db.session.query(
+            StockPorTalle.talle,
+            StockPorTalle.stock,
+            func.coalesce(func.sum(Carrito.cantidad), 0).label("en_carrito")
+        )
+        .outerjoin(Carrito, (StockPorTalle.producto_id == Carrito.producto_id) & (StockPorTalle.talle == Carrito.talle))
+        .filter(StockPorTalle.producto_id == producto.id)
+        .group_by(StockPorTalle.talle, StockPorTalle.stock)
+        .all()
+    )
+
+    talles = [
+        {'talle': t[0], 'stock': t[1], 'en_carrito': t[2]}
+        for t in raw_talles
+    ]
+
+    return render_template('producto_detalle.html', producto=producto, imagenes=imagenes, talles=talles)
+
 
 @app.route('/agregar_al_carrito/<slug>', methods=['POST'])
 def agregar_al_carrito(slug):
