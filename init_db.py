@@ -80,7 +80,7 @@ def cargar_datos():
 
     db.session.add_all(stock)
     db.session.commit()
-    print("✅ Productos y stock cargados correctamente")
+    print("✅ Productos y stock cargados correctamente!")
 
 if __name__ == '__main__':
     from app import app
