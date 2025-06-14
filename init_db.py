@@ -1,6 +1,11 @@
 from app import db, Producto, StockPorTalle
 
 def cargar_datos():
+    # 🔴 1. Borrar productos viejos antes de cargar nuevos
+    Producto.query.delete()
+    db.session.commit()
+
+    # 🟢 2. Cargar nuevos productos
     productos = [
         Producto(
             slug="miles-morales",
@@ -55,7 +60,7 @@ def cargar_datos():
     db.session.add_all(productos)
     db.session.commit()
 
-    # Asignar stock por talle (ejemplos reales)
+    # Asignar stock por talle
     stock = [
         StockPorTalle(producto_id=1, talle='120', stock=1),
         StockPorTalle(producto_id=1, talle='130', stock=1),
@@ -80,3 +85,4 @@ if __name__ == '__main__':
 
     with app.app_context():
         cargar_datos()
+
