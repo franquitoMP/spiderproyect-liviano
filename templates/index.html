@@ -96,6 +96,7 @@
     <h2 class="mb-4 text-center">Destacados</h2>
     <div class="row">
       {% for producto in productos_destacados %}
+      <p>{{ producto.imagen }}</p>
       <div class="col-lg-4 col-md-6 mb-4 d-flex align-items-stretch">
         <div class="card w-100">
           <a href="{{ url_for('producto_detalle', slug=producto.slug) }}">
