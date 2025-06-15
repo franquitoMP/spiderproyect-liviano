@@ -12,8 +12,8 @@ def cargar_datos():
             nombre="Traje Miles Morales",
             precio=45900,
             descripcion="Inspirado en Spider-Man: Into the Spider-Verse",
-            imagen="miles0_.webp",
-            imagenes="miles0_.webp,miles1_.webp,miles1_.webp,miles2_.webp,miles3_.webp,miles4_.webp,miles5_.webp,talles.webp"
+            imagen="miles3_.webp",
+            imagenes="miles5_.webp,miles1_.webp,miles2_.webp,miles3_.webp,miles4_.webp,miles0_.webp,talles.webp"
         ),
         Producto(
             slug="traje-mejorado",
@@ -21,7 +21,7 @@ def cargar_datos():
             precio=64900,
             descripcion="Versión mejorada del traje clásico rojo y negro",
             imagen="mejorado0_.webp",
-            imagenes="mejorado0_.webp,mejorado4_.webp,mejorado5_.webp,mejorado6_.webp,talles.webp"
+            imagenes="mejorado4_.webp,mejorado0_.webp,mejorado5_.webp,mejorado6_.webp,talles.webp"
         ),
         Producto(
             slug="electro",
@@ -29,14 +29,14 @@ def cargar_datos():
             precio=64900,
             descripcion="Traje con detalles dorados, basado en No Way Home",
             imagen="electro0_.webp",
-            imagenes="electro0_.webp,electro1_.webp,electro2_.webp,electro3_.webp,electro4_.webp,electro5_.webp,talles.webp"
+            imagenes="electro0_.webp,electro1_.webp,electro3_.webp,electro4_.webp,talles.webp"
         ),
         Producto(
             slug="spiderman-ps4",
             nombre="Traje Spider-Man PS4",
             precio=64900,
             descripcion="Traje del juego de PS4 con el logo blanco",
-            imagen="ps40_.webp",
+            imagen="ps41_.webp",
             imagenes="ps40_.webp,ps41_.webp,talles.webp"
         ),
         Producto(
@@ -44,8 +44,8 @@ def cargar_datos():
             nombre="Traje Clásico",
             precio=64900,
             descripcion="El traje tradicional rojo y azul",
-            imagen="clasico0.webp",
-            imagenes="clasico0.webp,clasico1.webp,clasico2.webp,clasico3.webp,clasico4.webp,clasico5.webp,clasico9.webp,talles.webp"
+            imagen="clasico9.webp",
+            imagenes="clasico3.webp,clasico9.webp,clasico4.webp,clasico5.webp,talles.webp"
         ),
         Producto(
             slug="iron-spider",
@@ -53,7 +53,7 @@ def cargar_datos():
             precio=64900,
             descripcion="Basado en Avengers: Infinity War",
             imagen="iron-spider0_.webp",
-            imagenes="iron-spider0_.webp,iron-spider1_.webp,iron-spider2_.webp,iron-spider3_.webp,iron-spider4_.webp,talles.webp"
+            imagenes="iron-spider3_.webp,iron-spider1_.webp,iron-spider2_.webp,iron-spider0_.webp,iron-spider4_.webp,talles.webp"
         ),
     ]
 
