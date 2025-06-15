@@ -12,7 +12,7 @@ def cargar_datos():
             nombre="Traje Miles Morales",
             precio=45900,
             descripcion="Inspirado en Spider-Man: Into the Spider-Verse",
-            imagen="miles3_.webp",
+            imagen="miles1_.webp",
             imagenes="miles5_.webp,miles1_.webp,miles2_.webp,miles3_.webp,miles4_.webp,miles0_.webp,talles.webp"
         ),
         Producto(
@@ -64,18 +64,18 @@ def cargar_datos():
     productos_map = {p.slug: p.id for p in Producto.query.all()}
 
     stock = [
-        StockPorTalle(producto_id=productos_map['miles-morales'], talle='120', stock=1),
+        StockPorTalle(producto_id=productos_map['miles-morales'], talle='120', stock=0),
         StockPorTalle(producto_id=productos_map['miles-morales'], talle='130', stock=1),
-        StockPorTalle(producto_id=productos_map['miles-morales'], talle='170', stock=1),
-        StockPorTalle(producto_id=productos_map['traje-mejorado'], talle='100', stock=1),
+        StockPorTalle(producto_id=productos_map['miles-morales'], talle='170', stock=2),
+        StockPorTalle(producto_id=productos_map['traje-mejorado'], talle='100', stock=0),
         StockPorTalle(producto_id=productos_map['traje-mejorado'], talle='120', stock=1),
-        StockPorTalle(producto_id=productos_map['traje-mejorado'], talle='130', stock=1),
-        StockPorTalle(producto_id=productos_map['traje-mejorado'], talle='180', stock=1),
-        StockPorTalle(producto_id=productos_map['electro'], talle='150', stock=1),
-        StockPorTalle(producto_id=productos_map['spiderman-ps4'], talle='120', stock=1),
-        StockPorTalle(producto_id=productos_map['traje-clasico'], talle='110', stock=1),
-        StockPorTalle(producto_id=productos_map['traje-clasico'], talle='130', stock=1),
-        StockPorTalle(producto_id=productos_map['iron-spider'], talle='140', stock=1),
+        StockPorTalle(producto_id=productos_map['traje-mejorado'], talle='130', stock=2),
+        StockPorTalle(producto_id=productos_map['traje-mejorado'], talle='180', stock=2),
+        StockPorTalle(producto_id=productos_map['electro'], talle='120', stock=1),
+        StockPorTalle(producto_id=productos_map['spiderman-ps4'], talle='120', stock=0),
+        StockPorTalle(producto_id=productos_map['traje-clasico'], talle='110', stock=0),
+        StockPorTalle(producto_id=productos_map['traje-clasico'], talle='130', stock=0),
+        StockPorTalle(producto_id=productos_map['iron-spider'], talle='140', stock=0),
     ]
 
     db.session.add_all(stock)
