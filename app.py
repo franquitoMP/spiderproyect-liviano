@@ -151,15 +151,20 @@ def eliminar(producto_id, talle):
 
 @app.route('/pagar', methods=['GET'])
 def pagar():
+    carrito = Carrito.query.all()  # O filtrá por usuario si tenés autenticación
+
+    items = []
+    for item in carrito:
+        producto = Producto.query.get(item.producto_id)
+        items.append({
+            "title": f"{producto.nombre} Talle {item.talle}",
+            "quantity": item.cantidad,
+            "currency_id": "ARS",
+            "unit_price": producto.precio
+        })
+
     preference_data = {
-        "items": [
-            {
-                "title": "Traje de Spider-Man",
-                "quantity": 1,
-                "currency_id": "ARS",
-                "unit_price": 64900.00
-            }
-        ],
+        "items": items,
         "back_urls": {
             "success": "https://www.google.com",
             "failure": "https://www.google.com",
@@ -170,12 +175,7 @@ def pagar():
 
     preference_response = sdk.preference().create(preference_data)
     preference = preference_response["response"]
-    init_point = preference.get("init_point")
-
-    if not init_point:
-        return "❌ Error: No se recibió un init_point. Verificá tu Access Token o configuración."
-
-    return redirect(init_point)
+    return redirect(preference["init_point"])
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
