@@ -167,9 +167,10 @@ def eliminar(producto_id, talle):
 
 @app.route('/pagar', methods=['GET'])
 def pagar():
-    carrito = Carrito.query.all()  # O filtrá por usuario si tenés autenticación
-
+    carrito = Carrito.query.all()
     items = []
+    total = 0
+
     for item in carrito:
         producto = Producto.query.get(item.producto_id)
         items.append({
@@ -178,13 +179,30 @@ def pagar():
             "currency_id": "ARS",
             "unit_price": producto.precio
         })
+        total += producto.precio * item.cantidad
+
+    # 🧾 Crear pedido en base
+    nuevo_pedido = Pedido(total=total)
+    db.session.add(nuevo_pedido)
+    db.session.commit()
+
+    for item in carrito:
+        detalle = DetallePedido(
+            pedido_id=nuevo_pedido.id,
+            producto_id=item.producto_id,
+            talle=item.talle,
+            cantidad=item.cantidad,
+            precio_unitario=Producto.query.get(item.producto_id).precio
+        )
+        db.session.add(detalle)
+    db.session.commit()
 
     preference_data = {
         "items": items,
         "back_urls": {
-            "success": "https://www.google.com",
-            "failure": "https://www.google.com",
-            "pending": "https://www.google.com"
+            "success": "https://spiderproyect.com/success",
+            "failure": "https://spiderproyect.com/failure",
+            "pending": "https://spiderproyect.com/pending"
         },
         "auto_return": "approved"
     }
@@ -192,6 +210,7 @@ def pagar():
     preference_response = sdk.preference().create(preference_data)
     preference = preference_response["response"]
     return redirect(preference["init_point"])
+
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
@@ -202,14 +221,25 @@ def webhook():
         payment_info = result["response"]
 
         if payment_info.get("status") == "approved":
-            items = Carrito.query.all()
-            for item in items:
-                stock = StockPorTalle.query.filter_by(producto_id=item.producto_id, talle=item.talle).first()
-                if stock:
-                    stock.stock -= item.cantidad
-                db.session.delete(item)
+            # 🧾 Buscar el último pedido y marcarlo como aprobado
+            pedido = Pedido.query.order_by(Pedido.id.desc()).first()
+            if pedido:
+                pedido.estado = "aprobado"
+                db.session.commit()
+
+                # 🔄 Resta el stock en base al detalle del pedido
+                detalles = DetallePedido.query.filter_by(pedido_id=pedido.id).all()
+                for item in detalles:
+                    stock = StockPorTalle.query.filter_by(producto_id=item.producto_id, talle=item.talle).first()
+                    if stock:
+                        stock.stock = max(0, stock.stock - item.cantidad)
+
+            # 🧹 Vacía el carrito
+            Carrito.query.delete()
             db.session.commit()
+
     return '', 200
+
 
 @app.route('/crear-tablas')
 def crear_tablas():
