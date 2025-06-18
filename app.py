@@ -35,6 +35,22 @@ class StockPorTalle(db.Model):
     talle = db.Column(db.String(20), nullable=False)
     stock = db.Column(db.Integer, nullable=False)
 
+from datetime import datetime
+
+class Pedido(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    fecha = db.Column(db.DateTime, default=datetime.utcnow)
+    estado = db.Column(db.String(20), default="pendiente")  # pendiente, aprobado, rechazado
+    total = db.Column(db.Float)
+
+class DetallePedido(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    pedido_id = db.Column(db.Integer, db.ForeignKey('pedido.id'), nullable=False)
+    producto_id = db.Column(db.Integer, nullable=False)
+    talle = db.Column(db.String(20), nullable=False)
+    cantidad = db.Column(db.Integer, nullable=False)
+    precio_unitario = db.Column(db.Float, nullable=False)
+
 # RUTAS PRINCIPALES
 @app.route('/')
 def home():
