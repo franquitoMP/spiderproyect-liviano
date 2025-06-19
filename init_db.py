@@ -19,7 +19,7 @@ def cargar_datos():
         Producto(
             slug="traje-mejorado",
             nombre="Traje Spider-man: Lejos De Casa",
-            precio=49000,
+            precio=2,
             descripcion="Traje inspirado en SpiderMan ideal para jugar disfrazarse o eventos tematicos. Modelo Traje Mejorado Spiderman Lejos de casa. Completo mascara Material Lycra elastica sublimada Ideal para fiestas Halloween cosplay o simplemente jugar como un heroe. Estado Nuevo sin uso en excelente estado Entrega inmediata Guia de talles en fotos. IMPORTANTE Este producto no es oficial ni licenciado por Marvel Es un disfraz inspirado de excelente calidad y muy comodo",
             imagen="mejorado0_.webp",
             imagenes="mejorado4_.webp,mejorado0_.webp,mejorado5_.webp,mejorado6_.webp,talles.webp"
