@@ -240,6 +240,24 @@ def webhook():
 
     return '', 200
 
+@app.route('/admin/pedidos')
+def admin_pedidos():
+    pedidos = Pedido.query.filter_by(estado='aprobado').order_by(Pedido.fecha.desc()).all()
+    html = '<h2>Pedidos aprobados</h2>'
+    
+    if not pedidos:
+        html += '<p>No hay pedidos aprobados aún.</p>'
+    
+    for pedido in pedidos:
+        html += f"<div style='margin-bottom:30px;'><b>Pedido #{pedido.id}</b> - Fecha: {pedido.fecha.strftime('%Y-%m-%d %H:%M:%S')} - Total: ${pedido.total}<ul>"
+        detalles = DetallePedido.query.filter_by(pedido_id=pedido.id).all()
+        for d in detalles:
+            producto = Producto.query.get(d.producto_id)
+            html += f"<li>{producto.nombre} - Talle {d.talle} - Cantidad {d.cantidad}</li>"
+        html += "</ul></div>"
+    
+    return html
+
 
 @app.route('/crear-tablas')
 def crear_tablas():
