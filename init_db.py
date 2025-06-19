@@ -3,6 +3,7 @@ from app import db, Producto, StockPorTalle
 def cargar_datos():
     # 🔴 Eliminar productos anteriores
     Producto.query.delete()
+    StockPorTalle.query.delete()
     db.session.commit()
 
     # 🟢 Cargar nuevos productos
