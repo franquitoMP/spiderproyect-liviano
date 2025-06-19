@@ -253,7 +253,9 @@ def admin_pedidos():
         detalles = DetallePedido.query.filter_by(pedido_id=pedido.id).all()
         for d in detalles:
             producto = Producto.query.get(d.producto_id)
-            html += f"<li>{producto.nombre} - Talle {d.talle} - Cantidad {d.cantidad}</li>"
+            nombre = producto.nombre if producto else f"Producto #{d.producto_id} (no encontrado)"
+            html += f"<li>{nombre} - Talle {d.talle} - Cantidad {d.cantidad}</li>"
+
         html += "</ul></div>"
     
     return html
