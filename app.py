@@ -211,6 +211,9 @@ def pagar():
     preference = preference_response["response"]
     return redirect(preference["init_point"])
 
+@app.route('/envio')
+def envio():
+    return render_template('envio.html')
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
