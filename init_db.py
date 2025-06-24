@@ -1,4 +1,4 @@
-from app import db, Producto, StockPorTalle
+from app import db, Producto, StockPorTalle, Envio
 
 def cargar_datos():
     # 🔴 Eliminar productos anteriores
@@ -87,4 +87,5 @@ if __name__ == '__main__':
     from app import app
 
     with app.app_context():
+        db.create_all()  # ✅ CREA todas las tablas si no existen
         cargar_datos()
