@@ -51,6 +51,17 @@ class DetallePedido(db.Model):
     cantidad = db.Column(db.Integer, nullable=False)
     precio_unitario = db.Column(db.Float, nullable=False)
 
+class Envio(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(100))
+    email = db.Column(db.String(100))
+    telefono = db.Column(db.String(50))
+    direccion = db.Column(db.String(150))
+    codigo_postal = db.Column(db.String(20))
+    provincia = db.Column(db.String(100))
+    localidad = db.Column(db.String(100))
+    tipo_envio = db.Column(db.String(50))
+
 # RUTAS PRINCIPALES
 @app.route('/')
 def home():
@@ -134,6 +145,25 @@ def ver_carrito():
 
     total = sum(p.precio * p.cantidad for p in productos)
     return render_template('carrito.html', productos=productos, total=total)
+
+@app.route('/confirmar_envio', methods=['POST'])
+def confirmar_envio():
+    datos = request.form
+
+    nuevo_envio = Envio(
+        nombre=datos['nombre'],
+        email=datos['email'],
+        telefono=datos['telefono'],
+        direccion=datos['direccion'],
+        codigo_postal=datos['codigo_postal'],
+        provincia=datos['provincia'],
+        localidad=datos['localidad'],
+        tipo_envio=datos['tipo_envio']
+    )
+    db.session.add(nuevo_envio)
+    db.session.commit()
+
+    return redirect('/pagar')
 
 @app.route('/aumentar/<int:producto_id>/<path:talle>', methods=['POST'])
 def aumentar(producto_id, talle):
