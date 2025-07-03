@@ -197,65 +197,69 @@ def eliminar(producto_id, talle):
 
 @app.route('/pagar', methods=['GET'])
 def pagar():
+    
+    carrito = Carrito.query.all()
+    items = []
+    total = 0
+    productos_validos = []
+
+    for item in carrito:
+        producto = Producto.query.get(item.producto_id)
+        if not producto:
+            db.session.delete(item)
+            continue
+
+        productos_validos.append(item)
+        items.append({
+            "title": f"{producto.nombre} Talle {item.talle}",
+            "quantity": item.cantidad,
+            "currency_id": "ARS",
+            "unit_price": producto.precio
+        })
+        total += producto.precio * item.cantidad
+
+    db.session.commit()
+
+    if not items:
+        return render_template("carrito_vacio.html"), 400  # Podés hacer este HTML o mostrar un mensaje claro
+
+    # 🧾 Crear pedido
+    nuevo_pedido = Pedido(total=total)
+    db.session.add(nuevo_pedido)
+    db.session.commit()
+
+    for item in productos_validos:
+        producto = Producto.query.get(item.producto_id)
+        detalle = DetallePedido(
+            pedido_id=nuevo_pedido.id,
+            producto_id=item.producto_id,
+            talle=item.talle,
+            cantidad=item.cantidad,
+            precio_unitario=producto.precio
+        )
+        db.session.add(detalle)
+
+    db.session.commit()
+
+    preference_data = {
+        "items": items,
+        "back_urls": {
+            "success": "https://spiderproyect.com/success",
+            "failure": "https://spiderproyect.com/failure",
+            "pending": "https://spiderproyect.com/pending"
+        },
+        "auto_return": "approved"
+    }
+
     try:
-        carrito = Carrito.query.all()
-        items = []
-        total = 0
-
-        for item in carrito:
-            producto = Producto.query.get(item.producto_id)
-            if not producto:
-                db.session.delete(item)
-                continue
-
-            items.append({
-                "title": f"{producto.nombre} Talle {item.talle}",
-                "quantity": item.cantidad,
-                "currency_id": "ARS",
-                "unit_price": producto.precio
-            })
-            total += producto.precio * item.cantidad
-
-        db.session.commit()
-
-        if not items:
-            return "<h3>⚠️ El carrito está vacío o contiene productos inválidos.</h3><a href='/productos'>Volver a productos</a>"
-
-        # 🧾 Crear pedido
-        nuevo_pedido = Pedido(total=total)
-        db.session.add(nuevo_pedido)
-        db.session.commit()
-
-        for item in carrito:
-            producto = Producto.query.get(item.producto_id)
-            if producto:
-                detalle = DetallePedido(
-                    pedido_id=nuevo_pedido.id,
-                    producto_id=item.producto_id,
-                    talle=item.talle,
-                    cantidad=item.cantidad,
-                    precio_unitario=producto.precio
-                )
-                db.session.add(detalle)
-
-        db.session.commit()
-
-        preference_data = {
-            "items": items,
-            "back_urls": {
-                "success": "https://spiderproyect.com/success",
-                "failure": "https://spiderproyect.com/failure",
-                "pending": "https://spiderproyect.com/pending"
-            },
-            "auto_return": "approved"
-        }
-
         preference_response = sdk.preference().create(preference_data)
         preference = preference_response["response"]
         return redirect(preference["init_point"])
-
+    
     except Exception as e:
-        return f"<h1>Error en /pagar</h1><pre>{e}</pre>"
+        # Podés loguearlo o notificarlo si querés
+        print(f"❌ Error al crear preferencia de pago: {e}")
+        return render_template("error_pago.html"), 500
 
 
 @app.route('/envio')
